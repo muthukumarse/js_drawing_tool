@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Drawing Tool</title>
+  <script src="drawingTool.js" charset="utf-8"></script>
+</head>
+
+<body>
+  <div>
+    <div>Commands</div>
+    <div><textarea id="commandsInput" rows="10" cols="50">
+C 20 4
+L 1 2 6 2
+L 6 3 6 4
+R 14 1 18 3
+B 10 3 o
+Q
+</textarea></div>
+  </div>
+  <input id="draw" type="button" value="Draw" />&nbsp;<input id="reset" type="button" value="Reset" onClick="window.location.reload()">
+  <p><strong>Output</strong></p>
+  <div id="output" style="font-family:menlo; white-space: pre">
+    Input commands into given Textarea and Click Draw button to get Output</div>
+</body>
+<script>
+  // register Click event for Draw action
+  var draw = document.getElementById("draw");
+  draw.addEventListener("click", function () {
+    // Clean output area on every action
+    document.getElementById("output").innerHTML = "";
+    // get the input 
+    const commandsInput = document.getElementById("commandsInput").value;
+    // get Drawing
+    const drawingTool = new DrawingTool(commandsInput);
+    let drawText = drawingTool.draw();
+    // Prepare the output to show into HTML
+    drawText = drawText.replace(/\r?\n/g, '<br/>');
+    // Paint
+    document.getElementById("output").innerHTML = drawText;
+  }, false);
+
+</script>
+
+</html>
